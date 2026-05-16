@@ -1,0 +1,48 @@
+{
+  "manifest_version": 3,
+  "name": "Select-to-Detect — AI vs Real",
+  "version": "2.0.0",
+  "description": "Drag a box around any image to detect if it's AI-generated or real. Powered by ResNet50 + Random Forest ensemble.",
+  "icons": {
+    "16":  "icons/icon16.png",
+    "48":  "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16":  "icons/icon16.png",
+      "48":  "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "Select-to-Detect"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://rahuldewangan01-ai-image-detector.hf.space/*",
+    "<all_urls>"
+  ],
+  "commands": {
+    "toggle-circle-mode": {
+      "suggested_key": {
+        "default": "Alt+Shift+C"
+      },
+      "description": "Toggle Select-to-Detect mode"
+    }
+  }
+}

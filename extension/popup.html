@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select-to-Detect</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <div class="popup-header">
+      <div class="popup-logo">
+        <div class="logo-circle">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="12" r="4"/>
+            <line x1="12" y1="2" x2="12" y2="6"/>
+            <line x1="12" y1="18" x2="12" y2="22"/>
+            <line x1="2" y1="12" x2="6" y2="12"/>
+            <line x1="18" y1="12" x2="22" y2="12"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title">Select-to-Detect</span>
+          <span class="logo-subtitle">AI vs Real Image Detector</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Server Status -->
+    <div class="status-bar" id="status-bar">
+      <div class="status-dot" id="status-dot"></div>
+      <span class="status-text" id="status-text">Checking server...</span>
+    </div>
+
+    <!-- Main Action Button -->
+    <button class="activate-btn" id="activate-btn">
+      <div class="btn-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M8 12l2 2 4-4"/>
+        </svg>
+      </div>
+      <div class="btn-content">
+        <span class="btn-label">Activate Detection</span>
+        <span class="btn-hint">or press Alt+Shift+C on any page</span>
+      </div>
+    </button>
+
+    <!-- How it works -->
+    <div class="how-section">
+      <div class="how-title">How it works</div>
+      <div class="how-steps">
+        <div class="how-step">
+          <div class="step-num">1</div>
+          <span>Click "Activate" or press <kbd>Alt+Shift+C</kbd></span>
+        </div>
+        <div class="how-step">
+          <div class="step-num">2</div>
+          <span>Drag a box around any image</span>
+        </div>
+        <div class="how-step">
+          <div class="step-num">3</div>
+          <span>Get instant AI vs Real verdict</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent History -->
+    <div class="history-section" id="history-section" style="display:none;">
+      <div class="history-title">Recent Detections</div>
+      <div class="history-list" id="history-list"></div>
+    </div>
+
+    <!-- Footer -->
+    <div class="popup-footer">
+      <span>Powered by ResNet50 · 96.93% accuracy</span>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

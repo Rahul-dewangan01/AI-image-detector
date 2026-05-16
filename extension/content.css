@@ -1,0 +1,409 @@
+/*
+ * Select-to-Detect — Content Script Styles
+ * ═══════════════════════════════════════════════════════════════
+ * Premium glassmorphism UI with smooth animations
+ */
+
+/* ── Google Fonts import ─────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* ── CSS Variables ───────────────────────────────────────────── */
+:root {
+  --ctd-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --ctd-bg: rgba(15, 15, 25, 0.85);
+  --ctd-card-bg: rgba(20, 20, 35, 0.92);
+  --ctd-card-border: rgba(99, 102, 241, 0.3);
+  --ctd-text: #f1f5f9;
+  --ctd-text-dim: #94a3b8;
+  --ctd-ai-color: #ef4444;
+  --ctd-real-color: #22c55e;
+  --ctd-accent: #6366f1;
+  --ctd-radius: 16px;
+  --ctd-shadow: 0 25px 60px rgba(0, 0, 0, 0.5),
+                0 0 40px rgba(99, 102, 241, 0.15);
+}
+
+/* ══════════════════════════════════════════════════════════════ */
+/* OVERLAY                                                       */
+/* ══════════════════════════════════════════════════════════════ */
+.ctd-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 2147483640 !important;
+  cursor: crosshair !important;
+  background: rgba(0, 0, 0, 0) !important;
+  transition: background 0.3s ease !important;
+  pointer-events: auto !important;
+}
+
+.ctd-overlay-active {
+  background: rgba(0, 0, 10, 0.15) !important;
+}
+
+.ctd-canvas {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  cursor: crosshair !important;
+}
+
+/* ══════════════════════════════════════════════════════════════ */
+/* ACTIVATION BADGE                                              */
+/* ══════════════════════════════════════════════════════════════ */
+.ctd-activation-badge {
+  position: fixed !important;
+  top: 20px !important;
+  left: 50% !important;
+  transform: translateX(-50%) translateY(-60px) !important;
+  z-index: 2147483647 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 10px 20px !important;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.95), rgba(139, 92, 246, 0.95)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 50px !important;
+  font-family: var(--ctd-font) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: white !important;
+  box-shadow: 0 8px 32px rgba(99, 102, 241, 0.4),
+              0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(20px) !important;
+  animation: ctdBadgeIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
+  pointer-events: none !important;
+  white-space: nowrap !important;
+}
+
+.ctd-badge-hint {
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  opacity: 0.7 !important;
+  margin-left: 4px !important;
+}
+
+.ctd-badge-fade {
+  animation: ctdBadgeOut 0.5s ease forwards !important;
+}
+
+@keyframes ctdBadgeIn {
+  0%   { transform: translateX(-50%) translateY(-60px); opacity: 0; }
+  100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+}
+
+@keyframes ctdBadgeOut {
+  0%   { transform: translateX(-50%) translateY(0); opacity: 1; }
+  100% { transform: translateX(-50%) translateY(-60px); opacity: 0; }
+}
+
+/* ══════════════════════════════════════════════════════════════ */
+/* RESULT CARD                                                   */
+/* ══════════════════════════════════════════════════════════════ */
+.ctd-result-card {
+  position: fixed !important;
+  z-index: 2147483646 !important;
+  width: 310px !important;
+  font-family: var(--ctd-font) !important;
+  opacity: 0 !important;
+  transform: scale(0.9) translateY(10px) !important;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  pointer-events: auto !important;
+}
+
+.ctd-result-card.ctd-card-enter {
+  opacity: 1 !important;
+  transform: scale(1) translateY(0) !important;
+}
+
+.ctd-result-card.ctd-card-exit {
+  opacity: 0 !important;
+  transform: scale(0.9) translateY(10px) !important;
+  transition: all 0.2s ease !important;
+}
+
+.ctd-card-inner {
+  background: var(--ctd-card-bg) !important;
+  border: 1px solid var(--ctd-card-border) !important;
+  border-radius: var(--ctd-radius) !important;
+  box-shadow: var(--ctd-shadow) !important;
+  backdrop-filter: blur(24px) saturate(1.8) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.8) !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+}
+
+/* ── Card Header ────────────────────────────────────────────── */
+.ctd-card-header {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 14px 16px 10px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+.ctd-card-icon {
+  font-size: 18px !important;
+  line-height: 1 !important;
+}
+
+.ctd-card-title {
+  flex: 1 !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: var(--ctd-text-dim) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.8px !important;
+}
+
+.ctd-card-close {
+  width: 24px !important;
+  height: 24px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 8px !important;
+  color: var(--ctd-text-dim) !important;
+  font-size: 12px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+}
+
+.ctd-card-close:hover {
+  background: rgba(239, 68, 68, 0.2) !important;
+  color: #ef4444 !important;
+  border-color: rgba(239, 68, 68, 0.3) !important;
+}
+
+/* ── Verdict Section ────────────────────────────────────────── */
+.ctd-verdict {
+  padding: 18px 16px !important;
+  text-align: center !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.ctd-verdict::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: radial-gradient(ellipse at center, 
+    color-mix(in srgb, var(--verdict-color) 12%, transparent),
+    transparent 70%) !important;
+  pointer-events: none !important;
+}
+
+.ctd-verdict-label {
+  font-size: 22px !important;
+  font-weight: 800 !important;
+  color: var(--verdict-color) !important;
+  letter-spacing: -0.3px !important;
+  margin-bottom: 4px !important;
+  text-shadow: 0 0 30px color-mix(in srgb, var(--verdict-color) 40%, transparent) !important;
+  animation: ctdPulseIn 0.6s ease !important;
+}
+
+.ctd-verdict-confidence {
+  font-size: 36px !important;
+  font-weight: 800 !important;
+  color: var(--ctd-text) !important;
+  letter-spacing: -1px !important;
+  animation: ctdCountUp 0.8s ease !important;
+}
+
+@keyframes ctdPulseIn {
+  0%   { transform: scale(0.8); opacity: 0; }
+  50%  { transform: scale(1.05); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes ctdCountUp {
+  0%   { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Probability Bars ───────────────────────────────────────── */
+.ctd-probabilities {
+  padding: 12px 16px 16px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+}
+
+.ctd-prob-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+.ctd-prob-label {
+  width: 52px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  color: var(--ctd-text-dim) !important;
+  flex-shrink: 0 !important;
+}
+
+.ctd-prob-bar-bg {
+  flex: 1 !important;
+  height: 8px !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-radius: 99px !important;
+  overflow: hidden !important;
+  position: relative !important;
+}
+
+.ctd-prob-bar {
+  height: 100% !important;
+  width: 0% !important;
+  border-radius: 99px !important;
+  background: var(--bar-color) !important;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--bar-color) 50%, transparent) !important;
+  transition: width 0s !important;
+  position: relative !important;
+}
+
+.ctd-prob-bar.ctd-bar-animate {
+  width: var(--bar-width) !important;
+  transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+.ctd-prob-value {
+  width: 48px !important;
+  text-align: right !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  color: var(--ctd-text) !important;
+  font-variant-numeric: tabular-nums !important;
+  flex-shrink: 0 !important;
+}
+
+/* ── Card Footer ────────────────────────────────────────────── */
+.ctd-card-footer {
+  padding: 10px 16px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+  font-size: 10px !important;
+  color: var(--ctd-text-dim) !important;
+  text-align: center !important;
+  letter-spacing: 0.3px !important;
+}
+
+/* ── Loading State ──────────────────────────────────────────── */
+.ctd-loading-card .ctd-card-inner {
+  padding: 32px 24px !important;
+  text-align: center !important;
+}
+
+.ctd-spinner {
+  width: 36px !important;
+  height: 36px !important;
+  margin: 0 auto 14px !important;
+  border: 3px solid rgba(99, 102, 241, 0.15) !important;
+  border-top-color: var(--ctd-accent) !important;
+  border-radius: 50% !important;
+  animation: ctdSpin 0.7s linear infinite !important;
+}
+
+@keyframes ctdSpin {
+  to { transform: rotate(360deg); }
+}
+
+.ctd-loading-text {
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: var(--ctd-text-dim) !important;
+  animation: ctdPulse 1.5s ease-in-out infinite !important;
+}
+
+@keyframes ctdPulse {
+  0%, 100% { opacity: 0.6; }
+  50%      { opacity: 1; }
+}
+
+/* ── Error / Info Cards ─────────────────────────────────────── */
+.ctd-error-message,
+.ctd-info-message {
+  padding: 16px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: var(--ctd-text) !important;
+  line-height: 1.5 !important;
+  text-align: center !important;
+}
+
+.ctd-error-card .ctd-card-inner {
+  border-color: rgba(239, 68, 68, 0.3) !important;
+}
+
+.ctd-info-card .ctd-card-inner {
+  border-color: rgba(234, 179, 8, 0.3) !important;
+}
+
+/* ── Verdict Subtitle ──────────────────────────────────────── */
+.ctd-verdict-subtitle {
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  color: var(--ctd-text-dim) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1.2px !important;
+  margin-top: 4px !important;
+  opacity: 0.7 !important;
+}
+
+/* ── Individual Model Rows ─────────────────────────────────── */
+.ctd-models-section {
+  padding: 0 16px 12px !important;
+}
+
+.ctd-models-divider {
+  height: 1px !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  margin-bottom: 10px !important;
+}
+
+.ctd-model-row {
+  margin-bottom: 8px !important;
+}
+
+.ctd-model-row:last-child {
+  margin-bottom: 0 !important;
+}
+
+.ctd-model-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-bottom: 4px !important;
+}
+
+.ctd-model-name {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: var(--ctd-text-dim) !important;
+}
+
+.ctd-model-verdict {
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  font-variant-numeric: tabular-nums !important;
+}
+
+.ctd-prob-row.ctd-compact {
+  gap: 0 !important;
+}
+
+.ctd-prob-row.ctd-compact .ctd-prob-bar-bg {
+  height: 5px !important;
+}
+
